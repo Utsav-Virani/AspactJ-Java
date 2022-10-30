@@ -36,7 +36,6 @@ public aspect Logger {
                 PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
             out.println("}");
             out.close();
-            Runtime.getRuntime().exec("dot -Tsvg callgraph.dot > Output.svg");
             } catch (IOException e) {
                 System.out.println(e);
             }
