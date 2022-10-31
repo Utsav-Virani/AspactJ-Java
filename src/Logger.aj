@@ -1,4 +1,3 @@
-import java.lang.Thread;
 import java.io.*;
 import java.util.*;
 import java.text.*;
@@ -24,11 +23,11 @@ public aspect Logger {
         } catch (IOException e) {}
     }
 
-    pointcut AddObserver() : call (* Subject.addObserver(..));
-    pointcut notifyObserver() : execution (* Subject.notifyObservers(..));
-    pointcut getHeadline() : call (* Blogger.getHeadline(..));
+    pointcut AddObserver() : call (* StreamingUpdate.addAlert(..));
+    pointcut notifyObserver() : execution (* StreamingUpdate.notifyEveryone(..));
+    pointcut getHeadline() : call (* Netflix.getAlertUpdates(..));
     pointcut update() : call (* *.update(..));
-    pointcut executeAtTheEnd(): execution (* Test.main(..));
+    pointcut executeAtTheEnd(): execution (* Main.main(..));
 
     after() returning() : executeAtTheEnd() {
         {

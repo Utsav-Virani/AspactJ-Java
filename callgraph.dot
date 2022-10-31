@@ -2,19 +2,16 @@
  * Description: This is an automatically generated .DOT file
  * representing a call graph.
  * Author: Utsav Bharatbhai Virani, Het Jatin Dalal
- * Date: 2022/10/30 05:01:02
+ * Date: 2022/10/31 15:34:17
  *
  */
 digraph call_graph {
  node [shape = oval];
- Newsportal -> Blogger[ label = "1. addObserver" ];
- Newspaper -> Blogger[ label = "2. addObserver" ];
- MobileSubscriber -> Blogger[ label = "3. addObserver" ];
- Blogger -> Blogger[ label = "4. notifyObservers" ];
- Blogger -> Newsportal[ label = "5. update" ];
- Newsportal -> Blogger[ label = "6. getHeadline" ];
- Blogger -> Newspaper[ label = "7. update" ];
- Newspaper -> Blogger[ label = "8. getHeadline" ];
- Blogger -> MobileSubscriber[ label = "9. update" ];
- MobileSubscriber -> Blogger[ label = "10. getHeadline" ];
+ EmailNewsLetter -> Netflix[ label = "1. addAlert" ];
+ SmsAlert -> Netflix[ label = "2. addAlert" ];
+ PushAlert -> Netflix[ label = "3. addAlert" ];
+ Netflix -> Netflix[ label = "4. notifyEveryone" ];
+ EmailNewsLetter -> Netflix[ label = "5. getAlertUpdates" ];
+ SmsAlert -> Netflix[ label = "6. getAlertUpdates" ];
+ PushAlert -> Netflix[ label = "7. getAlertUpdates" ];
 }
