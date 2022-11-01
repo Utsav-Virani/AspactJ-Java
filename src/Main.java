@@ -9,5 +9,6 @@ public class Main {
         System.out.println(librarian.getState());
         System.out.println(admin.getState());
         System.out.println(teachingStaff.getBookState());
+        librarian.removeBook();
     }
 }

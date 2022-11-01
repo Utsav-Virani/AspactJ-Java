@@ -2,7 +2,7 @@
  * Description: This is an automatically generated .DOT file
  * representing a call graph.
  * Author: Utsav Bharatbhai Virani, Het Jatin Dalal
- * Date: 2022/10/31 21:58:37
+ * Date: 2022/10/31 22:14:27
  *
  */
 digraph Library_call_graph {
@@ -17,4 +17,5 @@ digraph Library_call_graph {
  Admin -> Library[ label = "8. getBookUpdate" ];
  Library -> TeachingStaff[ label = "9. updateBookInfo" ];
  TeachingStaff -> Library[ label = "10. getBookUpdate" ];
+ Librarian -> Library[ label = "11. removeBook" ];
 }

@@ -23,8 +23,9 @@ public aspect Logger {
         } catch (IOException e) {}
     }
 
-    pointcut addBookTrack() : call (* StreamingUpdate.addBook(..));
-    pointcut sendMessageToEveryone() : execution (* StreamingUpdate.sendMessageToEveryone(..));
+    pointcut addBookTrack() : call (* LibraryDatabase.addBook(..));
+    pointcut removeBookTrack() : call (* LibraryDatabase.removeBook(..));
+    pointcut sendMessageToEveryone() : execution (* LibraryDatabase.sendMessageToEveryone(..));
     pointcut getBookUpdateTrack() : call (* Library.getBookUpdate(..));
     pointcut updateBookInfo() : call (* *.updateBookInfo(..));
     pointcut executeAtTheEnd(): execution (* Main.main(..));
@@ -51,6 +52,18 @@ public aspect Logger {
     }
 
     before() : addBookTrack() {
+        {
+            try {
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
+                out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
+                        thisJoinPoint.getTarget().getClass().getName()+
+                        "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
+                out.close();
+            } catch (IOException e) {}
+
+        }
+    }
+    after() : removeBookTrack() {
         {
             try {
                 PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));

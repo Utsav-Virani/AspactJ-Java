@@ -1,5 +1,5 @@
 import java.util.*;
-public class Library implements StreamingUpdate {
+public class Library implements LibraryDatabase {
     private String headline;
     private ArrayList<Books> viewers = new ArrayList<Books>();
     public void addBook(Books books){

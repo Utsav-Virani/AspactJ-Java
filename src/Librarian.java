@@ -8,6 +8,7 @@ public class Librarian implements Books {
     public void updateBookInfo() {
         this.state = library.getBookUpdate();
     }
+    public  void removeBook() {library.removeBook(this);}
     public String getState() {
         return "Librarian: " + this.state;
     }
