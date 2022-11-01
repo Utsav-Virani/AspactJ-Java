@@ -5,8 +5,7 @@ public class Main {
         EmailNewsLetter observer1 = new EmailNewsLetter(netflix);
         SmsAlert observer2 = new SmsAlert(netflix);
         PushAlert observer3 = new PushAlert(netflix);
-        netflix.setHeadline("Le Comiccon de Montreal. " +
-                "Du 13 au 15 septembre 2013.");
+        netflix.setAlert("Friends is now available on Netflix");
         System.out.println(observer1.getState());
         System.out.println(observer2.getState());
         System.out.println(observer3.getState());

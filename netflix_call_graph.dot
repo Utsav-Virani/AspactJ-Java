@@ -2,7 +2,7 @@
  * Description: This is an automatically generated .DOT file
  * representing a call graph.
  * Author: Utsav Bharatbhai Virani, Het Jatin Dalal
- * Date: 2022/10/31 15:34:17
+ * Date: 2022/10/31 20:28:53
  *
  */
 digraph call_graph {
@@ -11,7 +11,10 @@ digraph call_graph {
  SmsAlert -> Netflix[ label = "2. addAlert" ];
  PushAlert -> Netflix[ label = "3. addAlert" ];
  Netflix -> Netflix[ label = "4. notifyEveryone" ];
- EmailNewsLetter -> Netflix[ label = "5. getAlertUpdates" ];
- SmsAlert -> Netflix[ label = "6. getAlertUpdates" ];
- PushAlert -> Netflix[ label = "7. getAlertUpdates" ];
+ Netflix -> EmailNewsLetter[ label = "5. updateAlert" ];
+ EmailNewsLetter -> Netflix[ label = "6. getAlertUpdates" ];
+ Netflix -> SmsAlert[ label = "7. updateAlert" ];
+ SmsAlert -> Netflix[ label = "8. getAlertUpdates" ];
+ Netflix -> PushAlert[ label = "9. updateAlert" ];
+ PushAlert -> Netflix[ label = "10. getAlertUpdates" ];
 }

@@ -15,7 +15,7 @@ public class Netflix implements StreamingUpdate {
     public String getAlertUpdates() {
         return this.headline;
     }
-    public void setHeadline(String state) {
+    public void setAlert(String state) {
         this.headline = state;
         this.notifyEveryone();
     }

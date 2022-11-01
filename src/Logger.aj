@@ -8,7 +8,7 @@ public aspect Logger {
     private int n = 0;
     {
         try {
-            PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", false));
+            PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", false));
             out.println(
                     "/*\n" +
                             " * Description: This is an automatically generated .DOT file\n" +
@@ -23,16 +23,16 @@ public aspect Logger {
         } catch (IOException e) {}
     }
 
-    pointcut AddObserver() : call (* StreamingUpdate.addAlert(..));
-    pointcut notifyObserver() : execution (* StreamingUpdate.notifyEveryone(..));
-    pointcut getHeadline() : call (* Netflix.getAlertUpdates(..));
-    pointcut update() : call (* *.update(..));
+    pointcut addAlertTrack() : call (* StreamingUpdate.addAlert(..));
+    pointcut notifyEveryoneTrack() : execution (* StreamingUpdate.notifyEveryone(..));
+    pointcut getAlertUpdatesTrack() : call (* Netflix.getAlertUpdates(..));
+    pointcut updateAlert() : call (* *.updateAlert(..));
     pointcut executeAtTheEnd(): execution (* Main.main(..));
 
     after() returning() : executeAtTheEnd() {
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
             out.println("}");
             out.close();
             } catch (IOException e) {
@@ -43,17 +43,17 @@ public aspect Logger {
     after() returning() : executeAtTheEnd() {
         try {
             System.out.println("Generating Graph");
-            Runtime.getRuntime().exec("dot -Tsvg callgraph.dot -o callgraph.svg");
+            Runtime.getRuntime().exec("dot -Tpng netflix_call_graph.dot -o netflix_call_graph.png");
             System.out.println("Graph Generated Successfully.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    before() : AddObserver() {
+    before() : addAlertTrack() {
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -62,10 +62,10 @@ public aspect Logger {
 
         }
     }
-    before(): notifyObserver(){
+    before(): notifyEveryoneTrack(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -74,10 +74,10 @@ public aspect Logger {
 
         }
     }
-    before(): update(){
+    before(): updateAlert(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -86,10 +86,10 @@ public aspect Logger {
 
         }
     }
-    after(): getHeadline(){
+    after(): getAlertUpdatesTrack(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -101,7 +101,7 @@ public aspect Logger {
 //    {
 //        try {
 ////            Thread.sleep(1000);
-//            PrintWriter out = new PrintWriter(new FileWriter("callgraph.dot", true));
+//            PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
 //            out.println("}");
 //            out.close();
 //        } catch (IOException e) {
