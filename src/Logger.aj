@@ -8,7 +8,7 @@ public aspect Logger {
     private int n = 0;
     {
         try {
-            PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", false));
+            PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", false));
             out.println(
                     "/*\n" +
                             " * Description: This is an automatically generated .DOT file\n" +
@@ -17,22 +17,22 @@ public aspect Logger {
                             " * Date: " +dateFormat.format(date) + "\n" +
                     " *\n" +
                     " */\n" +
-                    "digraph call_graph {\n" +
+                    "digraph Library_call_graph {\n" +
                     " node [shape = oval];");
             out.close();
         } catch (IOException e) {}
     }
 
-    pointcut addAlertTrack() : call (* StreamingUpdate.addAlert(..));
-    pointcut notifyEveryoneTrack() : execution (* StreamingUpdate.notifyEveryone(..));
-    pointcut getAlertUpdatesTrack() : call (* Netflix.getAlertUpdates(..));
-    pointcut updateAlert() : call (* *.updateAlert(..));
+    pointcut addBookTrack() : call (* StreamingUpdate.addBook(..));
+    pointcut sendMessageToEveryone() : execution (* StreamingUpdate.sendMessageToEveryone(..));
+    pointcut getBookUpdateTrack() : call (* Library.getBookUpdate(..));
+    pointcut updateBookInfo() : call (* *.updateBookInfo(..));
     pointcut executeAtTheEnd(): execution (* Main.main(..));
 
     after() returning() : executeAtTheEnd() {
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
             out.println("}");
             out.close();
             } catch (IOException e) {
@@ -43,17 +43,17 @@ public aspect Logger {
     after() returning() : executeAtTheEnd() {
         try {
             System.out.println("Generating Graph");
-            Runtime.getRuntime().exec("dot -Tpng netflix_call_graph.dot -o netflix_call_graph.png");
+            Runtime.getRuntime().exec("dot -Tpng Library_call_graph.dot -o Library_call_graph.png");
             System.out.println("Graph Generated Successfully.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    before() : addAlertTrack() {
+    before() : addBookTrack() {
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -62,10 +62,10 @@ public aspect Logger {
 
         }
     }
-    before(): notifyEveryoneTrack(){
+    before(): sendMessageToEveryone(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -74,10 +74,10 @@ public aspect Logger {
 
         }
     }
-    before(): updateAlert(){
+    before(): updateBookInfo(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -86,10 +86,10 @@ public aspect Logger {
 
         }
     }
-    after(): getAlertUpdatesTrack(){
+    after(): getBookUpdateTrack(){
         {
             try {
-                PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+                PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
                 out.println(" " +thisJoinPoint.getThis().getClass().getName()+" -> " +
                         thisJoinPoint.getTarget().getClass().getName()+
                         "[ label = \"" + ++n + ". " +thisJoinPoint.getSignature().getName()+ "\" ];" );
@@ -101,7 +101,7 @@ public aspect Logger {
 //    {
 //        try {
 ////            Thread.sleep(1000);
-//            PrintWriter out = new PrintWriter(new FileWriter("netflix_call_graph.dot", true));
+//            PrintWriter out = new PrintWriter(new FileWriter("Library_call_graph.dot", true));
 //            out.println("}");
 //            out.close();
 //        } catch (IOException e) {

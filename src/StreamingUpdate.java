@@ -1,5 +1,5 @@
 public interface StreamingUpdate {
-    public void addAlert(Viewers viewers);
-    public void removeAlert(Viewers viewers);
-    public void notifyEveryone();
+    public void addBook(Books books);
+    public void removeBook(Books books);
+    public void sendMessageToEveryone();
 }

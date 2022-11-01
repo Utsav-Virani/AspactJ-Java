@@ -15,8 +15,8 @@ Information about files:
 - main.java : Root file for application
 
 Information about the visualization from the file generated from the .dot file:
-- There are 4 nodes [Netflix, EmailNewsLetter, Sms Alert, PushAlert].
-- Nodes EmailNewsLetter, Sms Alert and PushAlert, all 3 nodes communicate with the Node Netflix with the bellow given methods.
+- There are 4 nodes [Library, Librarian, Sms Alert, TeachingStaff].
+- Nodes Librarian, Sms Alert and TeachingStaff, all 3 nodes communicate with the Node Library with the bellow given methods.
   - addAlert
   - getAlertUpdates
   - updateAlert

@@ -1,0 +1,20 @@
+/*
+ * Description: This is an automatically generated .DOT file
+ * representing a call graph.
+ * Author: Utsav Bharatbhai Virani, Het Jatin Dalal
+ * Date: 2022/10/31 21:58:37
+ *
+ */
+digraph Library_call_graph {
+ node [shape = oval];
+ Librarian -> Library[ label = "1. addBook" ];
+ Admin -> Library[ label = "2. addBook" ];
+ TeachingStaff -> Library[ label = "3. addBook" ];
+ Library -> Library[ label = "4. sendMessageToEveryone" ];
+ Library -> Librarian[ label = "5. updateBookInfo" ];
+ Librarian -> Library[ label = "6. getBookUpdate" ];
+ Library -> Admin[ label = "7. updateBookInfo" ];
+ Admin -> Library[ label = "8. getBookUpdate" ];
+ Library -> TeachingStaff[ label = "9. updateBookInfo" ];
+ TeachingStaff -> Library[ label = "10. getBookUpdate" ];
+}
